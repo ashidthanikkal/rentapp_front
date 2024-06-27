@@ -1,0 +1,23 @@
+.custom-navbar {
+    background-color: transparent;
+    /* Change to your preferred color */
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+
+.custom-navbar .nav-link {
+    color: #000000;
+    /* Change to your preferred color */
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: color 0.2s ease-in-out;
+}
+
+.custom-navbar .nav-link:hover {
+    color: #003fd1;
+    /* Change to your preferred hover color */
+}
