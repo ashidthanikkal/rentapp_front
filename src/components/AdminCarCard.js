@@ -1,15 +1,26 @@
 import React from 'react'
 import './AdminCarCard.css'
 import { Link } from 'react-router-dom'
+import EditAdminCard from './EditAdminCard'
 
 function AdminCarCard() {
   return (
     <div>
               <div className='mt-5'>
                 <div className="car_card pt-3">
-                    <div className='ms-4'>
-                        <h4>Tata Altroz</h4>
-                        <h6><b>1000</b><sub>₹/day</sub></h6>
+                    <div className='ms-4 d-flex justify-content-around'>
+
+                       <div>
+                            <h4>Tata Altroz</h4>
+                            <h6><b>1000</b><sub>₹/day</sub></h6>
+    
+                       </div>
+                        <div className='d-flex align-items-center'>
+                        <EditAdminCard></EditAdminCard>
+                        <i className="fa-solid fa-lg fa-trash ms-3 text-danger" style={{color:"black"}}></i>
+                        </div>
+
+
                     </div>
                     <img style={{ width: "100%" }} src="https://i.postimg.cc/DZ0r32hk/Opera-Blue-0-1.png" alt="" />
     

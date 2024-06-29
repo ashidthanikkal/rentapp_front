@@ -4,6 +4,7 @@ import './AdminDash.css';
 import { Col, Row } from 'react-bootstrap';
 import AdminCarCard from '../components/AdminCarCard';
 import ViewUser from './ViewUser';
+import AdminAddCar from '../components/AdminAddCar';
 
 function AdminDash() {
     const [view, setView] = useState('default'); // 'default', 'addCar', 'viewUsers', 'bookings'
@@ -11,6 +12,7 @@ function AdminDash() {
     const handleViewChange = (newView) => {
         setView(newView);
     };
+
 
     return (
         <div>
@@ -20,13 +22,12 @@ function AdminDash() {
                 <Col lg={2}>
                 </Col>
                 <Col lg={10}>
-                <h1>Welcome Admin...!</h1>
+                    <h1>Welcome Admin...!</h1>
 
                     {view === 'addCar' && (
                         <div className='add_car'>
+                            <AdminAddCar></AdminAddCar>
                             <div className='d-flex flex-wrap gap-3'>
-                                <AdminCarCard></AdminCarCard>
-                                <AdminCarCard></AdminCarCard>
                                 <AdminCarCard></AdminCarCard>
                                 <AdminCarCard></AdminCarCard>
                                 <AdminCarCard></AdminCarCard>
@@ -42,7 +43,7 @@ function AdminDash() {
 
                     {view === 'bookings' && (
                         <div >
-                            <div className='bookings d-flex justify-content-around align-items-center shadow p-2 mt-3' >
+                            <div className='bookings  d-flex flex-wrap justify-content-around align-items-center shadow p-2 gap-2 mt-3' >
                                 <div>
                                     <h6>Tata Altroz</h6>
                                     <h6>No of Day :1</h6>
@@ -58,14 +59,15 @@ function AdminDash() {
                                 </div>
 
                                 <div>
-                                    <button className='btn btn-danger' type="button">Cancel</button>
+                                    <button className='btn btn-danger' type="button">Delete</button>
                                 </div>
                             </div>
                         </div>
                     )}
                 </Col>
             </Row>
-        </div>
+
+        </div >
     );
 }
 

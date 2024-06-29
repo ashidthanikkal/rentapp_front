@@ -32,11 +32,12 @@ function UserDash() {
                     />
                     <h5 className="text-center">Edit</h5>
                   </div>
-                  <div className="p-5">
+                  <div className="p-3">
                     <input className="form-control my-4" type="text" placeholder="Name" />
                     <input className="form-control my-4" type="email" placeholder="Email" />
                     <input className="form-control my-4" type="text" placeholder="Phone" />
-                    <input className="form-control my-4" type="text" placeholder="Address" />
+                    <input className="form-control my-4" type="text" placeholder="License No" />
+                    <div className='d-flex justify-content-center '><button className='btn btn-primary'>Save Changes</button></div>
                   </div>
                 </div>
               ) : (

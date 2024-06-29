@@ -15,7 +15,9 @@ function App() {
     <div className="App" >
       <Routes>
        <Route path='/' element={ <Landingpage></Landingpage>}></Route>
-       <Route path='/Auth' element={ <Auth></Auth>}></Route>
+       <Route path='/authentication' element={ <Auth></Auth>}></Route>
+       <Route path='/register' element={ <Auth register></Auth>}></Route>
+
        <Route path='/home' element={ <Homepage></Homepage>}></Route>
        <Route path='/booking' element={ <Bookingcar></Bookingcar>}></Route>
        <Route path='/userdash' element={ <UserDash></UserDash>}></Route>

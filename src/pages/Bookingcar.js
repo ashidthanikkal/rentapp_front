@@ -23,7 +23,6 @@ function Bookingcar() {
                             <h6><b>1000₹</b><sub>/day</sub></h6>
                             <h6>Max Person: 5</h6>
                             <h6>Manual/Auto: Manual</h6>
-                            <h6>Fuel Type: Petrol</h6>
                             <h6>Mileage: 14Km</h6>
                         </div>
                         <Divider type='horizontal' dashed>Select Time Slot</Divider>

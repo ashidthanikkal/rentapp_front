@@ -2,7 +2,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaCar, FaUsers, FaList, FaChartBar, FaSignOutAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 
 const SidebarContainer = styled.div`
   display: flex;
@@ -74,18 +73,28 @@ const SidebarItem = styled.div`
 const Sidebar = ({handleViewChange}) => {
   return (
     <SidebarContainer>
-      <SidebarItem>
-        <FaCar size={20}  />
-        <span onClick={() => handleViewChange('addCar')}>Add Car</span>
-      </SidebarItem>
-      <SidebarItem>
-        <FaUsers  size={20} />
-        <span onClick={() => handleViewChange('viewUsers')}>Users</span>
-      </SidebarItem>
-      <SidebarItem>
-        <FaList size={20} />
-        <span  onClick={() => handleViewChange('bookings')}>Bookings</span>
-      </SidebarItem>
+
+      <div onClick={() => handleViewChange('addCar')} className='w-100'>
+        <SidebarItem>
+          <FaCar  size={20}  />
+          <span >Add Car</span>
+        </SidebarItem>
+      </div>
+
+      <div onClick={() => handleViewChange('viewUsers')} className='w-100'>
+        <SidebarItem>
+          <FaUsers  size={20} />
+          <span>Users</span>
+        </SidebarItem>
+      </div>
+
+      <div  onClick={() => handleViewChange('bookings')} className='w-100'>
+        <SidebarItem >
+          <FaList size={20} />
+          <span>Bookings</span>
+        </SidebarItem>
+      </div>
+
       {/* <SidebarItem>
         <FaChartBar size={20} />
         <span>Statistics</span>
