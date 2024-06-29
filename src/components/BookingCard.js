@@ -3,7 +3,7 @@ import React from 'react'
 function BookingCard() {
     return (
         <div>
-            <div className='bookings d-flex justify-content-around shadow p-2 mt-3'>
+            <div className='bookings d-flex justify-content-around align-items-center shadow p-2 mt-3'>
                 <div>
                     <h6>Tata Altroz</h6>
                     <h6>No of Day :1</h6>
@@ -16,6 +16,10 @@ function BookingCard() {
                     <h6>From:</h6>
                     <h6>To:</h6>
                     <h6>Date of Booking</h6>
+                </div>
+
+                <div>
+                    <button className='btn btn-danger' type="button">Cancel</button>
                 </div>
             </div>
         </div>

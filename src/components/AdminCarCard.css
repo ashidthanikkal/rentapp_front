@@ -1,0 +1,23 @@
+.car_card {
+    box-sizing: border-box;
+    width: 250px;
+    height: 350px;
+    border: 1px solid white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    backdrop-filter: blur(6px);
+    border-radius: 17px;
+    cursor: pointer;
+    transition: all 0.5s;
+    user-select: none;
+    font-weight: bolder;
+    color: black;
+  }
+  
+  .car_card:hover {
+    border: 1px solid black;
+    transform: scale(1.05);
+  }
+  
+  .car_card:active {
+    transform: scale(0.95) rotateZ(1.7deg);
+  }
