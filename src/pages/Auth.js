@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Form from 'react-bootstrap/Form';
-import { registerApi } from '../services/allApis';
+import { loginApi, registerApi } from '../services/allApis';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Auth({ register }) {
     //navigate
@@ -26,7 +28,7 @@ function Auth({ register }) {
         if (name == "username") {
             if (value.match(/^[a-zA-Z ]+$/)) {
                 setValidUserName(false)
-                // setUserInputs({ ...userInputs, [name]: value })
+                setUserInputs({ ...userInputs, [name]: value })
             }
             else {
                 setValidUserName(true)
@@ -36,7 +38,7 @@ function Auth({ register }) {
         if (name == "email") {
             if (value.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
                 setValidEmail(false)
-                // setUserInputs({ ...userInputs, [name]: value })
+                setUserInputs({ ...userInputs, [name]: value })
             }
             else {
                 setValidEmail(true)
@@ -46,34 +48,108 @@ function Auth({ register }) {
         if (name == "password") {
             if (value.match(/^[a-zA-Z0-9]/)) {
                 setValidPassword(false)
-                // setUserInputs({ ...userInputs, [name]: value })
+                setUserInputs({ ...userInputs, [name]: value })
             }
             else {
                 setValidPassword(true)
             }
         }
-        setUserInputs({ ...userInputs, [name]: value })
+        // setUserInputs({ ...userInputs, [name]: value })
     }
 
     const handleRegister=async(e)=>{
         e.preventDefault()
         const {username,email,password}=userInputs
-        if(username==""||email==""||password==""){
+        if(!username||!email||!password){
             alert("please fill all datas")
         }
         else{
            const result= await registerApi(userInputs)
            if(result.status==201){
-            alert(result.data)
+            // alert(result.data)
+            toast.success(result.data, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
             setUserInputs({ ...userInputs,username:"",email:"",password:"" })
             navigate('/authentication')
 
+
            }
            else{
-            alert(result.response.data)
+            // alert(result.response.data)
+            toast.error(result.response.data, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
            }
         }
     }
+
+    //login
+    const handleLogin=async(e)=>{
+        e.preventDefault()
+        const {email,password}=userInputs
+        if(email==""||password==""){
+            alert("please fill all datas")
+        }
+        else{
+           const result= await loginApi(userInputs)
+           if(result.status==200){
+            //if login success then  store username and id in local storage
+            localStorage.setItem("currentUser",result.data.user.username)
+            localStorage.setItem("userId",result.data.user._id)
+
+            // alert(result.data)
+            toast.success(result.data.message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
+
+            setUserInputs({ ...userInputs,email:"",password:"" })
+            navigate('/userdash')//navigation when login
+
+           }
+           else{
+            // alert(result.response.data)
+            toast.error(result.response.data, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
+
+            setUserInputs({ ...userInputs,email:"",password:"" })
+           }
+        }
+    }
+
 
 
     // console.log(userInputs);
@@ -97,7 +173,7 @@ function Auth({ register }) {
                                 type="text"
                                 placeholder="username"
                                 name='username'
-                                value={userInputs.username}
+                                value={userInputs.username?.username}
                                 onChange={(e) => setData(e)}
                             />
                             <label htmlFor="floatingInputCustom" style={{ color: "grey" }}>Username</label>
@@ -118,7 +194,7 @@ function Auth({ register }) {
                             type="email"
                             placeholder="name@example.com"
                             name='email'
-                            value={userInputs.email}
+                            value={userInputs.email?.email}
                             onChange={(e) => setData(e)}
                         />
                         <label htmlFor="floatingInputCustom" style={{ color: "grey" }}>Email </label>
@@ -137,7 +213,7 @@ function Auth({ register }) {
                             type="password"
                             placeholder="Password"
                             name='password'
-                            value={userInputs.password}
+                            value={userInputs.password?.password}
                             onChange={(e) => setData(e)}
                         />
                         <label htmlFor="floatingPasswordCustom" style={{ color: "grey" }}>Password</label>
@@ -151,7 +227,7 @@ function Auth({ register }) {
                     register ?
                         <button onClick={(e)=>handleRegister(e)} className='btn btn-primary my-3'>Sign Up</button>
                         :
-                        <button className='btn btn-primary my-3'>LogIn</button>
+                        <button  onClick={(e)=>handleLogin(e)} className='btn btn-primary my-3'>LogIn</button>
 
                 }
 
@@ -167,6 +243,7 @@ function Auth({ register }) {
 
 
             </div>
+            <ToastContainer />
         </div>
     )
 }

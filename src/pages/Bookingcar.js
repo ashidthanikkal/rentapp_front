@@ -1,12 +1,21 @@
 import { Divider, DatePicker } from 'antd'
-import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import './Bookingcar.css'; // Import a custom CSS file
 import Header from '../components/Header';
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const { RangePicker } = DatePicker
 
 function Bookingcar() {
+    const [isLogedIn,setIsLogedIn]=useState(false)
+    useEffect(()=>{
+        if(localStorage.getItem("userId")){
+            setIsLogedIn(true)
+        }
+    },[])
+    console.log(isLogedIn);
+
     return (
         <div >
             <Header></Header>
@@ -31,7 +40,14 @@ function Bookingcar() {
                             <h6>Day: 1 Day</h6>
                             <h6>Rent Per Day: 1000₹</h6>
                             <h6>Total: <span style={{color:"green"}}>1000₹</span></h6>
-                            <button className='booking-btn'>Book Now</button>
+
+                            {
+                                isLogedIn?
+                                <Link to={'/payment'}><button className='booking-btn'>Book Now</button></Link>
+                                :
+                                <Link to={'/authentication'}><button className='booking-btn'>Book Now</button></Link>
+                            }
+
                         </div>
                     </Col>
                 </Row>

@@ -9,6 +9,7 @@ import Auth from './pages/Auth';
 import AdminDash from './pages/AdminDash';
 import AdminCarCard from './components/AdminCarCard';
 import ViewUser from './pages/ViewUser';
+import Payment from './pages/Payment';
 
 function App() {
   return (
@@ -17,7 +18,6 @@ function App() {
        <Route path='/' element={ <Landingpage></Landingpage>}></Route>
        <Route path='/authentication' element={ <Auth></Auth>}></Route>
        <Route path='/register' element={ <Auth register></Auth>}></Route>
-
        <Route path='/home' element={ <Homepage></Homepage>}></Route>
        <Route path='/booking' element={ <Bookingcar></Bookingcar>}></Route>
        <Route path='/userdash' element={ <UserDash></UserDash>}></Route>
@@ -25,6 +25,7 @@ function App() {
        <Route path='/admin_dash' element={ <AdminDash></AdminDash>}></Route>
        <Route path='/admin_car' element={ <AdminCarCard></AdminCarCard>}></Route>
        <Route path='/view_user' element={ <ViewUser></ViewUser>}></Route>
+       <Route path='/payment' element={ <Payment></Payment>}></Route>
       </Routes>
     </div>
   );
