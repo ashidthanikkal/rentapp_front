@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Form from 'react-bootstrap/Form';
 import { loginApi, registerApi } from '../services/allApis';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { authContext } from '../services/Context';
 
 function Auth({ register }) {
+    const {isAdmin,setIsAdmin}=useContext(authContext)
+
     //navigate
     const navigate=useNavigate()
 
@@ -113,6 +116,10 @@ function Auth({ register }) {
             //if login success then  store username and id in local storage
             localStorage.setItem("currentUser",result.data.user.username)
             localStorage.setItem("userId",result.data.user._id)
+            localStorage.setItem("token",result.data.token)
+            localStorage.setItem("user",JSON.stringify(result.data.user))
+            localStorage.setItem("role",result.data.role)
+
 
             // alert(result.data)
             toast.success(result.data.message, {
@@ -128,7 +135,8 @@ function Auth({ register }) {
                 });
 
             setUserInputs({ ...userInputs,email:"",password:"" })
-            navigate('/userdash')//navigation when login
+            setIsAdmin(prev=>!prev)
+            navigate('/')//navigation when login
 
            }
            else{

@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { CardImg, Card, ListGroup } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { authContext } from '../services/Context';
 
 function ProfileCard({ changeOpen, isProfileOpen,username }) {
+  const {setIsAdmin}=useContext(authContext)
+  const navigate=useNavigate()
+  const handleLogout=()=>{
+    localStorage.clear()
+    setIsAdmin(prev=>!prev)
+    navigate("/authentication")
+  }
   return (
     <div>
       <Card style={{ width: '22rem' }} className='shadow'>
@@ -30,7 +39,7 @@ function ProfileCard({ changeOpen, isProfileOpen,username }) {
           >
             My Bookings
           </ListGroup.Item>
-          <ListGroup.Item>
+          <ListGroup.Item onClick={handleLogout} style={{cursor: "pointer"}}>
             Logout
           </ListGroup.Item>
         </ListGroup>

@@ -1,7 +1,9 @@
 // Sidebar.js
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { FaCar, FaUsers, FaList, FaChartBar, FaSignOutAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { authContext } from '../services/Context';
 
 const SidebarContainer = styled.div`
   display: flex;
@@ -71,6 +73,13 @@ const SidebarItem = styled.div`
 `;
 
 const Sidebar = ({handleViewChange}) => {
+  const {isAdmin,setIsAdmin}=useContext(authContext)
+  const navigate=useNavigate()
+  const handleLogout=()=>{
+    localStorage.clear()
+    setIsAdmin(prev=>!prev)
+    navigate("/authentication")
+  }
   return (
     <SidebarContainer>
 
@@ -99,10 +108,12 @@ const Sidebar = ({handleViewChange}) => {
         <FaChartBar size={20} />
         <span>Statistics</span>
       </SidebarItem> */}
-      <SidebarItem>
-        <FaSignOutAlt size={20} />
-        <span>Logout</span>
-      </SidebarItem>
+      <div onClick={()=>handleLogout()}>
+        <SidebarItem>
+          <FaSignOutAlt size={20} />
+          <span>Logout</span>
+        </SidebarItem>
+      </div>
     </SidebarContainer>
   );
 };
