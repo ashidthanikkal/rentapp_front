@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 function Header() {
+  const [username, setUsername] = useState("")
+  useEffect(() => {
+    if (localStorage.getItem("currentUser")) {
+      setUsername(localStorage.getItem("currentUser"))
+    }
+  }, [username])
+
+  const navigate=useNavigate()
+  const handleLogout=()=>{
+    localStorage.clear()
+    navigate("/authentication")
+  }
   return (
     <div>
        <Navbar expand="lg" className="custom-navbar">
@@ -18,9 +30,16 @@ function Header() {
             <Nav.Link as={Link} to="/" className="nav-link">About</Nav.Link>
             <Nav.Link as={Link} to="/" className="nav-link">Contact</Nav.Link>
 
-            <Nav.Link as={Link} to="/userdash" className="nav-link">Profile</Nav.Link>
-            
-            <Nav.Link as={Link} to="/authentication" className="nav-link">Login/SignUp</Nav.Link>
+            {  username&&
+              <Nav.Link as={Link} to="/userdash" className="nav-link">Profile</Nav.Link>              
+              }
+
+
+            { username?
+              <Nav.Link onClick={()=>handleLogout()}  className="nav-link">Logout</Nav.Link>
+              :
+              <Nav.Link as={Link} to="/authentication" className="nav-link">Login/SignUp</Nav.Link>
+              }
           </Nav>
         </Navbar.Collapse>
       </Container>

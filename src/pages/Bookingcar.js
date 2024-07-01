@@ -3,7 +3,8 @@ import { Col, Row } from 'react-bootstrap'
 import './Bookingcar.css'; // Import a custom CSS file
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { authContext } from '../services/Context';
 
 const { RangePicker } = DatePicker
 
@@ -15,6 +16,9 @@ function Bookingcar() {
         }
     },[])
     console.log(isLogedIn);
+
+    const {userCars}=useContext(authContext)
+    console.log(userCars);
 
     return (
         <div >
@@ -28,8 +32,8 @@ function Bookingcar() {
                     <Col lg={6} md={6} sm={12} className='car-info p-3'>
                         <Divider type='horizontal' dashed>Car Info</Divider>
                         <div className='car-details'>
-                            <h6>Tata Altroz</h6>
-                            <h6><b>1000₹</b><sub>/day</sub></h6>
+                            <h6>{userCars?.title}</h6>
+                            <h6><b>{userCars?.rentamount}₹</b><sub>/day</sub></h6>
                             <h6>Max Person: 5</h6>
                             <h6>Manual/Auto: Manual</h6>
                             <h6>Mileage: 14Km</h6>

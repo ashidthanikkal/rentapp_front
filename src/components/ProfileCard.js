@@ -13,7 +13,7 @@ function ProfileCard({ changeOpen, isProfileOpen,username }) {
   }
   return (
     <div>
-      <Card style={{ width: '22rem' }} className='shadow'>
+      <Card style={{ width: '18rem' }} className='shadow'>
         <div className='d-flex justify-content-center'>
           <CardImg
             style={{ borderRadius: '50%', width: '150px', padding: '20px' }}

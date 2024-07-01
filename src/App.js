@@ -10,12 +10,12 @@ import AdminDash from './pages/AdminDash';
 import AdminCarCard from './components/AdminCarCard';
 import ViewUser from './pages/ViewUser';
 import Payment from './pages/Payment';
-import { useContext, useEffect, useState } from 'react';
+import { useContext} from 'react';
 import { authContext } from './services/Context';
 
 function App() {
   const {isAdmin,setIsAdmin}=useContext(authContext)
-  console.log(isAdmin);
+  // console.log(isAdmin);
   return (
     <div className="App" >
       <Routes>
@@ -23,7 +23,7 @@ function App() {
       <Route path='/authentication' element={ <Auth></Auth>}></Route>
        <Route path='/register' element={ <Auth register></Auth>}></Route>
        <Route path='/home' element={ <Homepage></Homepage>}></Route>
-       <Route path='/booking' element={ <Bookingcar></Bookingcar>}></Route>
+       <Route path='/booking/:carid' element={ <Bookingcar></Bookingcar>}></Route>
        <Route path='/userdash' element={ <UserDash></UserDash>}></Route>
        <Route path='/my_bookings' element={ <Mybookings></Mybookings>}></Route>
        <Route path='/admin' element={ <AdminDash></AdminDash>}></Route>

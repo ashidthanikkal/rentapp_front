@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
+import { getUserCarApi } from './allApis';
 
 export const authContext = createContext()
 
@@ -9,16 +10,28 @@ function Context({children}) {
     useEffect(() => {
         if (localStorage.getItem("role") === "admin") {
             setIsAdmin(true);
-            console.log("true");
         } else {
             setIsAdmin(false);
-            console.log("false");
         }
-        console.log("outside if");
     }, [isAdmin]);
+
+
+    //get user 
+
+    const [userCars,setUserCars]=useState([])
+    const getUserCars=async()=>{
+       const result=await getUserCarApi()
+       setUserCars(result.data);
+    }
+
+    useEffect(()=>{
+        getUserCars()
+    },[])
+    console.log(userCars);
+
     return (
         <div>
-            <authContext.Provider value={{ isAdmin, setIsAdmin }}>
+            <authContext.Provider value={{ isAdmin, setIsAdmin, userCars,setUserCars }}>
                 {children}
             </authContext.Provider>
         </div>

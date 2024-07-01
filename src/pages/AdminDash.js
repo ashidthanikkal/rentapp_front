@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import './AdminDash.css';
 import { Col, Row } from 'react-bootstrap';
 import AdminCarCard from '../components/AdminCarCard';
 import ViewUser from './ViewUser';
 import AdminAddCar from '../components/AdminAddCar';
+import { getAdminCarApi } from '../services/allApis';
 
 function AdminDash() {
     const [view, setView] = useState('default'); // 'default', 'addCar', 'viewUsers', 'bookings'
@@ -12,6 +13,17 @@ function AdminDash() {
     const handleViewChange = (newView) => {
         setView(newView);
     };
+
+    const [adminCars,setAdminCars]=useState([])
+    const getAdminCars=async()=>{
+       const result=await getAdminCarApi()
+       setAdminCars(result.data);
+    }
+
+    useEffect(()=>{
+        getAdminCars()
+    },[])
+// console.log(adminCars);
 
 
     return (
@@ -28,9 +40,15 @@ function AdminDash() {
                         <div className='add_car'>
                             <AdminAddCar></AdminAddCar>
                             <div className='d-flex flex-wrap gap-3'>
-                                <AdminCarCard></AdminCarCard>
-                                <AdminCarCard></AdminCarCard>
-                                <AdminCarCard></AdminCarCard>
+                                {
+                                   adminCars?.length>0? 
+                                    adminCars.map(i=>(
+                                        <AdminCarCard cars={i}></AdminCarCard>
+                                    ))
+                                    :
+                                    <h2>No Cars Uploaded yet...!</h2>
+                                    
+                                    }
                             </div>
                         </div>
                     )}
