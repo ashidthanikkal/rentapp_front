@@ -15,18 +15,30 @@ export const loginApi=async(bodyData)=>{
 //add cars
 
 export const addCarApi=async(bodyData,headerData)=>{
+
     return await commonApi('POST',`${baseUrl}/admin/add-car`,bodyData,headerData)
 }
-//get cars admin
-export const getAdminCarApi=async()=>{
-    return await commonApi('GET',`${baseUrl}/admin/view-car`,"","")
-}
-//get cars user
-export const getUserCarApi=async()=>{
-    return await commonApi('GET',`${baseUrl}/user/view-car`,"","")
+//get cars
+export const getCarApi=async()=>{
+    return await commonApi('GET',`${baseUrl}/view-car`,"","")
 }
 
+//get single car
 export const getCarByIdApi = async (id) => {
-    return await commonApi('GET',`${baseUrl}/user/view-car/${id}`)
+    return await commonApi('GET',`${baseUrl}/view-car/${id}`)
 }
+
+//View users for admin
+export const viewUserApi = async () => {
+    return await commonApi('GET',`${baseUrl}/view-users`)
+}
+
+
+//booking
+
+export const bookCarApi = async (id,bodyData,headerData) => {
+    return await commonApi('POST',`${baseUrl}/booking/${id}`,bodyData,headerData)
+}
+
+
 

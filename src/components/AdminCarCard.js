@@ -17,7 +17,7 @@ function AdminCarCard({cars}) {
     
                        </div>
                         <div className='d-flex align-items-center'>
-                        <EditAdminCard></EditAdminCard>
+                        <EditAdminCard cars={cars}></EditAdminCard>
                         <i className="fa-solid fa-lg fa-trash ms-3 text-danger" style={{color:"black"}}></i>
                         </div>
 

@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Homepage from './pages/Homepage';
 import Bookingcar from './pages/Bookingcar';
@@ -14,7 +14,7 @@ import { useContext} from 'react';
 import { authContext } from './services/Context';
 
 function App() {
-  const {isAdmin,setIsAdmin}=useContext(authContext)
+  const {isAdmin}=useContext(authContext)
   // console.log(isAdmin);
   return (
     <div className="App" >
@@ -23,7 +23,7 @@ function App() {
       <Route path='/authentication' element={ <Auth></Auth>}></Route>
        <Route path='/register' element={ <Auth register></Auth>}></Route>
        <Route path='/home' element={ <Homepage></Homepage>}></Route>
-       <Route path='/booking/:carid' element={ <Bookingcar></Bookingcar>}></Route>
+       <Route path='/booking/:carId' element={ <Bookingcar></Bookingcar>}></Route>
        <Route path='/userdash' element={ <UserDash></UserDash>}></Route>
        <Route path='/my_bookings' element={ <Mybookings></Mybookings>}></Route>
        <Route path='/admin' element={ <AdminDash></AdminDash>}></Route>

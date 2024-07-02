@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import './AdminDash.css';
 import { Col, Row } from 'react-bootstrap';
 import AdminCarCard from '../components/AdminCarCard';
 import ViewUser from './ViewUser';
 import AdminAddCar from '../components/AdminAddCar';
-import { getAdminCarApi } from '../services/allApis';
+import { authContext } from '../services/Context';
+import { viewUserApi } from '../services/allApis';
 
 function AdminDash() {
     const [view, setView] = useState('default'); // 'default', 'addCar', 'viewUsers', 'bookings'
@@ -14,16 +15,17 @@ function AdminDash() {
         setView(newView);
     };
 
-    const [adminCars,setAdminCars]=useState([])
-    const getAdminCars=async()=>{
-       const result=await getAdminCarApi()
-       setAdminCars(result.data);
+    const { viewCars } = useContext(authContext)
+
+    const [user, setUser] = useState([])
+    const getUser = async () => {
+        const result = await viewUserApi()
+        setUser(result.data);
     }
 
-    useEffect(()=>{
-        getAdminCars()
-    },[])
-// console.log(adminCars);
+    useEffect(() => {
+        getUser()
+    }, [])
 
 
     return (
@@ -41,22 +43,23 @@ function AdminDash() {
                             <AdminAddCar></AdminAddCar>
                             <div className='d-flex flex-wrap gap-3'>
                                 {
-                                   adminCars?.length>0? 
-                                    adminCars.map(i=>(
-                                        <AdminCarCard cars={i}></AdminCarCard>
-                                    ))
-                                    :
-                                    <h2>No Cars Uploaded yet...!</h2>
-                                    
-                                    }
+                                    viewCars?.length > 0 ?
+                                        viewCars.map(i => (
+                                            <AdminCarCard cars={i}></AdminCarCard>
+                                        ))
+                                        :
+                                        <h2>No Cars Uploaded yet...!</h2>
+
+                                }
                             </div>
                         </div>
                     )}
 
                     {view === 'viewUsers' && (
-                        <div className='users' style={{ overflowX: "scroll" }}>
-                            <ViewUser></ViewUser>
-                        </div>
+                    <div className='users' style={{ overflowX: "scroll" }}>
+                         <ViewUser user={user}></ViewUser>
+                        
+                    </div>
                     )}
 
                     {view === 'bookings' && (

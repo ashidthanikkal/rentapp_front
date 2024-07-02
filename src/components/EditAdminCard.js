@@ -5,7 +5,18 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
 
-function EditAdminCard() {
+function EditAdminCard({cars}) {
+
+    const [carInputs, setCarInputs] = useState({
+        _id:cars?._id,
+        title: cars?.title,
+        rentamount:cars?.rentamount ,
+        milage: cars?.milage,
+        seat: cars?.seat,
+        cartype: cars?.cartype,
+        carimage:""
+    })
+
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);

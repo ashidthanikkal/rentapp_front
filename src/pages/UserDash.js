@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProfileCard from '../components/ProfileCard';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Header from '../components/Header';
 import Mybookings from '../components/Mybookings';
 

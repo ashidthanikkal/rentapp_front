@@ -1,20 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { addCarApi } from '../services/allApis';
+import { authContext } from '../services/Context';
 
 function AdminAddCar() {
     const [show, setShow] = useState(false);
 
-    const handleClose = () => {setShow(false);
-        setCarInputs({...carInputs,title: "", rentamount: "", milage: "", seat: "", cartype: "", carimage: ""})
+    const handleClose = () => {
+        setShow(false);
+        setCarInputs({ ...carInputs, title: "", rentamount: "", milage: "", seat: "", cartype: "", carimage: "" })
     }
     const handleShow = () => setShow(true);
 
     const [carInputs, setCarInputs] = useState({
-        title: "", rentamount: "", milage: "", seat: "", cartype: "", carimage: ""
+        title: "",
+        rentamount: "",
+        milage: "",
+        seat: "",
+        cartype: "",
+        carimage: ""
     })
 
     const setInputs = (e) => {
@@ -24,54 +31,60 @@ function AdminAddCar() {
 
     console.log(carInputs);
 
-    const [prev,setPrev]=useState("")
+    const [prev, setPrev] = useState("")
 
-    useEffect(()=>{
-        if(carInputs.carimage){
-          setPrev(URL.createObjectURL(carInputs.carimage))  
+    useEffect(() => {
+        if (carInputs.carimage) {
+            setPrev(URL.createObjectURL(carInputs.carimage))
         }
-        else{
+        else {
             setPrev("")
         }
-    },[carInputs.carimage])
+    }, [carInputs.carimage])
 
     // console.log(prev);
 
-   const handleAdd=async(e)=>{
-    e.preventDefault()
-    const {title, rentamount, milage, seat, cartype, carimage}=carInputs
-    if(!title || !rentamount|| !milage|| !seat|| !cartype || !carimage){
-        alert("Please fill All datas")
-    }
-    else{
-        //header
-        if(localStorage.getItem("token")){
-            const headerConfig={
-                "Content-Type":"multipart/form-data"
-            }
-            const reqBody=new FormData()
-            reqBody.append("title",title)
-            reqBody.append("rentamount",rentamount)
-            reqBody.append("milage",milage)
-            reqBody.append("seat",seat)
-            reqBody.append("cartype",cartype)
-            reqBody.append("carimage",carimage)
+    const {getCars}=useContext(authContext)
 
-          const result = await addCarApi(reqBody,headerConfig)
-          console.log(result);
-
-          if(result.status==(201)){
-            alert(`${result.data.title} added successfully`)
-            handleClose()
-          }
-          else{
-            alert(result.response.title)
-          }
-
+    const handleAdd = async (e) => {
+        e.preventDefault()
+        const { title, rentamount, milage, seat, cartype, carimage } = carInputs
+        if (!title || !rentamount || !milage || !seat || !cartype || !carimage) {
+            alert("Please fill All datas")
         }
-    }
+        else {
+            //header-token ,multi-part/form-data
+            if (localStorage.getItem("token")) {
+                const token = localStorage.getItem("token")
+                console.log(token);
+                const headerConfig = {
+                    "Content-Type": "multipart/form-data",
+                    "access_token": `Bearer ${token}`
+                }
+                const reqBody = new FormData()
+                reqBody.append("title", title)
+                reqBody.append("rentamount", rentamount)
+                reqBody.append("milage", milage)
+                reqBody.append("seat", seat)
+                reqBody.append("cartype", cartype)
+                reqBody.append("carimage", carimage)
 
-   } 
+                const result = await addCarApi(reqBody,headerConfig)
+                console.log(result);
+
+                if (result.status == (201)) {
+                    alert(`${result.data.title} added successfully`)
+                    getCars()
+                    handleClose()
+                }
+                else {
+                    console.log(result);
+                }
+
+            }
+        }
+
+    }
 
     return (
         <div>
@@ -87,45 +100,45 @@ function AdminAddCar() {
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridCarname">
                                     <Form.Label>Car Name</Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        name="title" 
-                                        value={carInputs.title} 
-                                        onChange={setInputs} 
-                                        placeholder="Enter Car Name" 
+                                    <Form.Control
+                                        type="text"
+                                        name="title"
+                                        value={carInputs.title}
+                                        onChange={setInputs}
+                                        placeholder="Enter Car Name"
                                     />
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formGridAmount">
                                     <Form.Label>Rent Amount</Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        name="rentamount" 
-                                        value={carInputs.rentamount} 
-                                        onChange={setInputs} 
-                                        placeholder="Rent Amount" 
+                                    <Form.Control
+                                        type="text"
+                                        name="rentamount"
+                                        value={carInputs.rentamount}
+                                        onChange={setInputs}
+                                        placeholder="Rent Amount"
                                     />
                                 </Form.Group>
                             </Row>
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridMilage">
                                     <Form.Label>Milage</Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        name="milage" 
-                                        value={carInputs.milage} 
-                                        onChange={setInputs} 
-                                        placeholder="Enter Car Milage" 
+                                    <Form.Control
+                                        type="text"
+                                        name="milage"
+                                        value={carInputs.milage}
+                                        onChange={setInputs}
+                                        placeholder="Enter Car Milage"
                                     />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="formGridSeatnumber">
                                     <Form.Label>No. of Seat</Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        name="seat" 
-                                        value={carInputs.seat} 
-                                        onChange={setInputs} 
-                                        placeholder="Enter No. of Seat" 
+                                    <Form.Control
+                                        type="text"
+                                        name="seat"
+                                        value={carInputs.seat}
+                                        onChange={setInputs}
+                                        placeholder="Enter No. of Seat"
                                     />
                                 </Form.Group>
                             </Row>
@@ -136,13 +149,13 @@ function AdminAddCar() {
                                             Automatic/Manual
                                         </Form.Label>
                                         <Form.Check
-                                           type="radio"
-                                           label="Auto"
-                                           name="cartype"
-                                           id="formHorizontalRadios1"
-                                           value="Auto"
-                                           onChange={setInputs}
-                                           checked={carInputs.cartype === "Auto"}
+                                            type="radio"
+                                            label="Auto"
+                                            name="cartype"
+                                            id="formHorizontalRadios1"
+                                            value="Auto"
+                                            onChange={setInputs}
+                                            checked={carInputs.cartype === "Auto"}
                                         />
                                         <Form.Check
                                             type="radio"
@@ -158,8 +171,8 @@ function AdminAddCar() {
                                 <Col lg={6}>
                                     <label htmlFor='img'>
                                         Upload car image
-                                        <input type="file" id='img' className='d-none' onChange={(e)=>setCarInputs({...carInputs,["carimage"]:e.target.files[0]})} />
-                                        <img src={prev?prev:"https://i.postimg.cc/7PCZ88D4/Screenshot-2024-06-29-120847.png"} className='rounded' style={{ width: "100%" }} alt="" />
+                                        <input type="file" id='img' className='d-none' onChange={(e) => setCarInputs({ ...carInputs, ["carimage"]: e.target.files[0] })} />
+                                        <img src={prev ? prev : "https://i.postimg.cc/7PCZ88D4/Screenshot-2024-06-29-120847.png"} className='rounded' style={{ width: "100%" }} alt="" />
                                     </label>
                                 </Col>
                             </Row>
@@ -169,7 +182,7 @@ function AdminAddCar() {
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="dark" onClick={(e)=>handleAdd(e)}>
+                        <Button variant="dark" onClick={(e) => handleAdd(e)}>
                             Add
                         </Button>
                     </Modal.Footer>

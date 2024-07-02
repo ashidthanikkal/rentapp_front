@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { getUserCarApi } from './allApis';
+import { getCarApi} from './allApis';
 
 export const authContext = createContext()
 
@@ -16,22 +16,20 @@ function Context({children}) {
     }, [isAdmin]);
 
 
-    //get user 
-
-    const [userCars,setUserCars]=useState([])
-    const getUserCars=async()=>{
-       const result=await getUserCarApi()
-       setUserCars(result.data);
+    const [viewCars,setViewCars]=useState([])
+    const getCars=async()=>{
+       const result=await getCarApi()
+       setViewCars(result.data);
     }
 
     useEffect(()=>{
-        getUserCars()
+        getCars()
     },[])
-    console.log(userCars);
+    // console.log(getCars);
 
     return (
         <div>
-            <authContext.Provider value={{ isAdmin, setIsAdmin, userCars,setUserCars }}>
+            <authContext.Provider value={{ isAdmin, setIsAdmin, viewCars,setViewCars, getCars}}>
                 {children}
             </authContext.Provider>
         </div>

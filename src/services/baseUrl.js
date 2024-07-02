@@ -5,7 +5,7 @@ export const commonApi=async(method,url,reqBody,reqHeader)=>{
         method,
         url,
         data:reqBody,
-        header:reqHeader?reqHeader:{"Content-Type":"application/json"}
+        headers:reqHeader?reqHeader:{"Content-Type":"application/json"}
     }
     return await axios(config).then(data=>{
         return data
