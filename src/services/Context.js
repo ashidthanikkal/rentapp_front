@@ -4,6 +4,8 @@ import { getCarApi} from './allApis';
 export const authContext = createContext()
 
 
+
+
 function Context({children}) {
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -24,14 +26,17 @@ function Context({children}) {
 
     useEffect(()=>{
         getCars()
+        
     },[])
     // console.log(getCars);
 
+    const [editUpdate,setEditUpdate]=useState("")
+
     return (
         <div>
-            <authContext.Provider value={{ isAdmin, setIsAdmin, viewCars,setViewCars, getCars}}>
-                {children}
-            </authContext.Provider>
+                <authContext.Provider value={{ isAdmin, setIsAdmin, viewCars,setViewCars, getCars}}>
+                    {children}
+                </authContext.Provider>
         </div>
     )
 }

@@ -1,10 +1,31 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './AdminCarCard.css'
-import { Link } from 'react-router-dom'
 import EditAdminCard from './EditAdminCard'
 import { baseUrl } from '../services/commonApi'
+import { deleteCarApi } from '../services/allApis'
+import { authContext } from '../services/Context'
 
 function AdminCarCard({cars}) {
+
+    const {getCars}=useContext(authContext)
+
+    const handleDelete=async(e,id)=>{
+        e.preventDefault()
+
+        if(localStorage.getItem("token")){
+            const token=localStorage.getItem("token")
+            const reqHeader = {
+                "Content-Type":"application/json",
+                "access_token": `Bearer ${token}`
+            }
+            const result=await deleteCarApi(reqHeader,id)
+            // console.log(result);
+            if(result.status==200){
+                getCars()
+            }
+        }
+    }
+
   return (
     <div>
               <div className='mt-5'>
@@ -18,7 +39,7 @@ function AdminCarCard({cars}) {
                        </div>
                         <div className='d-flex align-items-center'>
                         <EditAdminCard cars={cars}></EditAdminCard>
-                        <i className="fa-solid fa-lg fa-trash ms-3 text-danger" style={{color:"black"}}></i>
+                        <i onClick={(e)=>handleDelete(e,cars._id)} className="fa-solid fa-lg fa-trash ms-3 text-danger" style={{color:"black"}}></i>
                         </div>
 
 

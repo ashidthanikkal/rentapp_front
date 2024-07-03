@@ -41,4 +41,17 @@ export const bookCarApi = async (id,bodyData,headerData) => {
 }
 
 
+//editCar Api
+export const editCarApi=async(bodyData,headerData,id)=>{
+    return await commonApi('PUT',`${baseUrl}/admin/edit-car/${id}`,bodyData,headerData)
+}
+
+
+//deleteCar Api
+
+export const deleteCarApi=async(headerData,id)=>{
+    return await commonApi('DELETE',`${baseUrl}/admin/delete-car/${id}`,{},headerData)
+}
+
+
 
