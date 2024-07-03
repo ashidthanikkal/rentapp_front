@@ -5,7 +5,6 @@ import { Link, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import { bookCarApi, getCarByIdApi } from '../services/allApis';
 import { baseUrl } from '../services/commonApi';
-import moment from 'moment';
 import './Bookingcar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
@@ -14,7 +13,7 @@ const { RangePicker } = DatePicker;
 
 function Bookingcar() {
     const [isLogedIn, setIsLogedIn] = useState(false);
-    
+
     const [car, setCar] = useState({});
     const [from, setFrom] = useState(null);
     const [to, setTo] = useState(null);
@@ -45,48 +44,56 @@ function Bookingcar() {
             const toDate = new Date(dates[1].format('YYYY-MM-DD'));
             setFrom(fromDate.toLocaleDateString('en-GB'));
             setTo(toDate.toLocaleDateString('en-GB'));
-            const daysDiff = (toDate - fromDate) / (1000 * 60 * 60 * 24);
+            const daysDiff = (toDate - fromDate) / (1000 * 60 * 60 * 24)+1;
             setDays(daysDiff);
-          } else {
+        } else {
             setFrom(null);
             setTo(null);
             setDays(0);
-          }    };
-        
-// console.log(from);
-// console.log(to);
+        }
+    };
+
+    // console.log(from);
+    // console.log(to);
 
     const totalAmount = car?.rentamount ? car.rentamount * days : 0;
 
     const disabledDate = (current) => {
         // Disable dates before today
-        return current && current < moment().startOf('day');
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set the time to the start of today (00:00:00)
+        return current && current < today;
     };
-    
-    //book now
-    const bookNow=async()=>{
 
-        const reqObj={
+    //book now
+    const bookNow = async () => {
+        if (!from || !to) {
+            alert("Please select a date range.");
+            return;
+        }
+
+
+        const reqObj = {
             days,
             totalAmount,
-            bookedTimeSlot:[{
+            bookedTimeSlot: [{
                 from,
                 to
             }],
-            transactionId:"12w"
+            transactionId: "12w"
         }
 
-        const token=localStorage.getItem("token")
+        const token = localStorage.getItem("token")
 
         const headerConfig = {
             "Content-Type": "application/json",
             "access_token": `Bearer ${token}`
         }
-        try{
-            const response=await bookCarApi(carId,reqObj,headerConfig)
+        try {
+            const response = await bookCarApi(carId, reqObj, headerConfig)
             console.log(response);
         }
-        catch(error){
+        catch (error) {
             console.log(error);
         }
 
@@ -122,7 +129,7 @@ function Bookingcar() {
                                 onChange={selectTimeSlots}
                                 disabledDate={disabledDate}
                             />
-                            <h6>Days: {days} Day{days > 1 ? 's' : ''}</h6>
+                            <h6>Days: {days} Day{days != 1 ? 's' : ''}</h6>
                             <h6>Rent Per Day: {car?.rentamount}₹</h6>
                             <h6>Total: <span style={{ color: "green" }}>{totalAmount}₹</span></h6>
 
