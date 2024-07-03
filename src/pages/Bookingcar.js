@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Divider, DatePicker } from 'antd';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
@@ -13,11 +13,10 @@ const { RangePicker } = DatePicker;
 
 function Bookingcar() {
     const [isLogedIn, setIsLogedIn] = useState(false);
-
     const [car, setCar] = useState({});
     const [from, setFrom] = useState(null);
     const [to, setTo] = useState(null);
-    const [days, setDays] = useState(1); // Initialize days to 1
+    const [days, setDays] = useState(1);
     const { carId } = useParams();
 
     useEffect(() => {
@@ -42,10 +41,25 @@ function Bookingcar() {
         if (dates) {
             const fromDate = new Date(dates[0].format('YYYY-MM-DD'));
             const toDate = new Date(dates[1].format('YYYY-MM-DD'));
-            setFrom(fromDate.toLocaleDateString('en-GB'));
-            setTo(toDate.toLocaleDateString('en-GB'));
-            const daysDiff = (toDate - fromDate) / (1000 * 60 * 60 * 24)+1;
-            setDays(daysDiff);
+            const daysDiff = (toDate - fromDate) / (1000 * 60 * 60 * 24) + 1;
+
+            // Check if selected dates overlap with booked slots
+            const hasOverlap = car.bookedTimeSlots.some(slot => {
+                const slotFrom = new Date(slot.from.split('/').reverse().join('-'));
+                const slotTo = new Date(slot.to.split('/').reverse().join('-'));
+                return (fromDate <= slotTo && toDate >= slotFrom);
+            });
+
+            if (hasOverlap) {
+                alert("Selected dates overlap with an existing booking. Please select different dates.");
+                setFrom(null);
+                setTo(null);
+                setDays(0);
+            } else {
+                setFrom(fromDate.toLocaleDateString('en-GB'));
+                setTo(toDate.toLocaleDateString('en-GB'));
+                setDays(daysDiff);
+            }
         } else {
             setFrom(null);
             setTo(null);
@@ -53,25 +67,45 @@ function Bookingcar() {
         }
     };
 
-    // console.log(from);
-    // console.log(to);
-
     const totalAmount = car?.rentamount ? car.rentamount * days : 0;
 
-    const disabledDate = (current) => {
-        // Disable dates before today
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Set the time to the start of today (00:00:00)
-        return current && current < today;
+    const isContinuousDate = (current, bookedSlot) => {
+        const slotFrom = new Date(bookedSlot.from.split('/').reverse().join('-'));
+        const slotTo = new Date(bookedSlot.to.split('/').reverse().join('-'));
+
+        const prevDate = new Date(slotFrom);
+        prevDate.setDate(prevDate.getDate() - 1);
+
+        const nextDate = new Date(slotTo);
+        nextDate.setDate(nextDate.getDate() + 1);
+
+        return current.isSame(prevDate, 'day') || current.isSame(nextDate, 'day');
     };
 
-    //book now
+    const disabledDate = (current) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (current && current < today) {
+            return true;
+        }
+
+        if (car.bookedTimeSlots) {
+            return car.bookedTimeSlots.some(slot => {
+                const from = new Date(slot.from.split('/').reverse().join('-'));
+                const to = new Date(slot.to.split('/').reverse().join('-'));
+                return (current >= from && current <= to) || isContinuousDate(current, slot);
+            });
+        }
+
+        return false;
+    };
+
     const bookNow = async () => {
         if (!from || !to) {
             alert("Please select a date range.");
             return;
         }
-
 
         const reqObj = {
             days,
@@ -81,23 +115,23 @@ function Bookingcar() {
                 to
             }],
             transactionId: "12w"
-        }
+        };
 
-        const token = localStorage.getItem("token")
+        const token = localStorage.getItem("token");
 
         const headerConfig = {
             "Content-Type": "application/json",
             "access_token": `Bearer ${token}`
-        }
+        };
         try {
-            const response = await bookCarApi(carId, reqObj, headerConfig)
+            const response = await bookCarApi(carId, reqObj, headerConfig);
             console.log(response);
-        }
-        catch (error) {
+            alert("Booking Successful");
+        } catch (error) {
             console.log(error);
+            alert("Booking failed");
         }
-
-    }
+    };
 
     return (
         <div>
@@ -129,12 +163,12 @@ function Bookingcar() {
                                 onChange={selectTimeSlots}
                                 disabledDate={disabledDate}
                             />
-                            <h6>Days: {days} Day{days != 1 ? 's' : ''}</h6>
+                            <h6>Days: {days} Day{days !== 1 ? 's' : ''}</h6>
                             <h6>Rent Per Day: {car?.rentamount}₹</h6>
                             <h6>Total: <span style={{ color: "green" }}>{totalAmount}₹</span></h6>
 
                             {isLogedIn ?
-                                <Link to={'/payment'}><button className='booking-btn' onClick={bookNow}>Book Now</button></Link>
+                                <button className='booking-btn' onClick={bookNow}>Book Now</button>
                                 :
                                 <Link to={'/authentication'}><button className='booking-btn'>Book Now</button></Link>
                             }
