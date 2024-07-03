@@ -10,7 +10,7 @@ import './Bookingcar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 
-// const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker;
 
 function Bookingcar() {
     const [isLogedIn, setIsLogedIn] = useState(false);
@@ -39,13 +39,23 @@ function Bookingcar() {
         fetchCarDetails();
     }, [carId]);
 
-    const selectTimeSlots = (values) => {
-        // setFrom(moment(values[0]).format('DD MM YYYY'));
-        // setTo(moment(values[1]).format('DD MM YYYY'));
-        // setDays(values[1].diff(values[0], 'days') + 1); // Calculate the difference in days and add 1 to include both start and end date
-    };
+    const selectTimeSlots = (dates) => {
+        if (dates) {
+            const fromDate = new Date(dates[0].format('YYYY-MM-DD'));
+            const toDate = new Date(dates[1].format('YYYY-MM-DD'));
+            setFrom(fromDate.toLocaleDateString('en-GB'));
+            setTo(toDate.toLocaleDateString('en-GB'));
+            const daysDiff = (toDate - fromDate) / (1000 * 60 * 60 * 24);
+            setDays(daysDiff);
+          } else {
+            setFrom(null);
+            setTo(null);
+            setDays(0);
+          }    };
         
-console.log(from);
+// console.log(from);
+// console.log(to);
+
     const totalAmount = car?.rentamount ? car.rentamount * days : 0;
 
     const disabledDate = (current) => {
@@ -107,11 +117,11 @@ console.log(from);
                         </div>
                         <Divider type='horizontal' dashed>Select Time Slot</Divider>
                         <div className='text-end booking-details'>
-                            {/* <RangePicker
+                            <RangePicker
                                 format='DD MM YYYY'
                                 onChange={selectTimeSlots}
                                 disabledDate={disabledDate}
-                            /> */}
+                            />
                             <h6>Days: {days} Day{days > 1 ? 's' : ''}</h6>
                             <h6>Rent Per Day: {car?.rentamount}₹</h6>
                             <h6>Total: <span style={{ color: "green" }}>{totalAmount}₹</span></h6>
