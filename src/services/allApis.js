@@ -53,10 +53,15 @@ export const deleteCarApi=async(headerData,id)=>{
     return await commonApi('DELETE',`${baseUrl}/admin/delete-car/${id}`,{},headerData)
 }
 
-
+//user edit profile
 export const editProfileApi=async(bodyData,headerData,id)=>{
     return await commonApi('PUT',`${baseUrl}/user/edit-profile/${id}`,bodyData,headerData)
 }
 
+//view bookings for admin
+
+export const viewBookingsApi = async () => {
+    return await commonApi('GET',`${baseUrl}/bookings`)
+}
 
 

@@ -6,7 +6,7 @@ import AdminCarCard from '../components/AdminCarCard';
 import ViewUser from './ViewUser';
 import AdminAddCar from '../components/AdminAddCar';
 import { authContext } from '../services/Context';
-import { viewUserApi } from '../services/allApis';
+import { viewBookingsApi, viewUserApi } from '../services/allApis';
 
 function AdminDash() {
     const [view, setView] = useState('default'); // 'default', 'addCar', 'viewUsers', 'bookings'
@@ -25,6 +25,18 @@ function AdminDash() {
 
     useEffect(() => {
         getUser()
+    }, [])
+
+
+    const [userBooking, setUserBookings] = useState({})
+
+    const getBookings = async () => {
+        const result = await viewBookingsApi()
+        // console.log(result.data);
+        setUserBookings(result.data)
+    }
+    useEffect(() => {
+        getBookings()
     }, [])
 
 
@@ -56,34 +68,45 @@ function AdminDash() {
                     )}
 
                     {view === 'viewUsers' && (
-                    <div className='users' style={{ overflowX: "scroll" }}>
-                         <ViewUser user={user}></ViewUser>
-                        
-                    </div>
+                        <div className='users' style={{ overflowX: "scroll" }}>
+                            <ViewUser user={user}></ViewUser>
+
+                        </div>
                     )}
 
                     {view === 'bookings' && (
                         <div >
-                            <div className='bookings  d-flex flex-wrap justify-content-around align-items-center shadow p-2 gap-2 mt-3' >
-                                <div>
-                                    <h6>Username: Mariya</h6>
-                                    <h6>Phone: 9876543210</h6>
-                                    <h6>Car: Tata Altroz</h6>
-                                    <h6>Rent Per Day:1000</h6>
-                                </div>
 
-                                <div>
-                                    <h6>Transaction Id:123</h6>
-                                    <h6>From:</h6>
-                                    <h6>To:</h6>
-                                    <h6>No of Day :1</h6>
-                                    <h6>Total amount:<span className='text-success'>1000</span></h6>
+                            {
+                                userBooking?.length>0?
+                                userBooking.map(i=>(
+                                    <div className='bookings  d-flex flex-wrap justify-content-around align-items-center shadow p-2 gap-2 mt-3' >
+                                    <div>
+                                        <h6>Username: {i?.username}</h6>
+                                        <h6>Phone:{i?.phone} </h6>
+                                        <h6>Car: {i?.carTitle}</h6>
+                                        <h6>Rent Per Day:{i?.rentPerDay}</h6>
+                                    </div>
+    
+                                    <div>
+                                        <h6>Transaction Id:{i?.transactionId}</h6>
+                                        <h6>From:{i?.from}</h6>
+                                        <h6>To:{i?.to}</h6>
+                                        <h6>No of Day :{i?.days}</h6>
+                                        <h6>Total amount:<span className='text-success'>{i?.totalAmount}</span></h6>
+                                    </div>
+    
+                                    <div>
+                                        <button className='btn btn-danger' type="button">Delete</button>
+                                    </div>
                                 </div>
+    
 
-                                <div>
-                                    <button className='btn btn-danger' type="button">Delete</button>
-                                </div>
-                            </div>
+                                ))
+                                :
+                                <h2>No Bookings yet...!</h2>
+                            }
+
                         </div>
                     )}
                 </Col>
