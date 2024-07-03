@@ -3,11 +3,14 @@ import { getCarApi} from './allApis';
 
 export const authContext = createContext()
 
-
+export const profileUpdateContext=createContext()
 
 
 function Context({children}) {
     const [isAdmin, setIsAdmin] = useState(false);
+
+    const [editProfile,setEditProfile] = useState("")
+
 
     useEffect(() => {
         if (localStorage.getItem("role") === "admin") {
@@ -34,9 +37,11 @@ function Context({children}) {
 
     return (
         <div>
-                <authContext.Provider value={{ isAdmin, setIsAdmin, viewCars,setViewCars, getCars}}>
-                    {children}
-                </authContext.Provider>
+               <profileUpdateContext.Provider value={{editUpdate,setEditUpdate}}>
+                    <authContext.Provider value={{ isAdmin, setIsAdmin, viewCars,setViewCars, getCars}}>
+                        {children}
+                    </authContext.Provider>
+               </profileUpdateContext.Provider>
         </div>
     )
 }

@@ -1,23 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CardImg, Card, ListGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { authContext } from '../services/Context';
+import { authContext, profileUpdateContext } from '../services/Context';
+import { baseUrl } from '../services/commonApi';
 
-function ProfileCard({ changeOpen, isProfileOpen,username }) {
+function ProfileCard({ changeOpen, isProfileOpen,username,existingImage }) {
   const {setIsAdmin}=useContext(authContext)
+  const {editUpdate,setEditUpdate}=useContext(profileUpdateContext)
+
   const navigate=useNavigate()
   const handleLogout=()=>{
     localStorage.clear()
     setIsAdmin(prev=>!prev)
     navigate("/authentication")
   }
+
+  useEffect(()=>{
+
+  },[editUpdate])
   return (
     <div>
       <Card style={{ width: '18rem' }} className='shadow'>
         <div className='d-flex justify-content-center'>
           <CardImg
             style={{ borderRadius: '50%', width: '150px', padding: '20px' }}
-            src="https://i.postimg.cc/6pTqS6WS/Screenshot-2024-06-30-162542.png"
+            src={`${baseUrl}/uploads/${existingImage}`}
             alt="User Profile Picture"
           />
         </div>

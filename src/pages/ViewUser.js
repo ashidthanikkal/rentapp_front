@@ -11,7 +11,7 @@ function ViewUser({user}) {
             <th>Username</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>Licence No</th>
+            <th>License No</th>
           </tr>
         </thead>
         <tbody>
@@ -23,7 +23,7 @@ function ViewUser({user}) {
             <td>{i.username}</td>
             <td>{i.email}</td>
             <td>{i.phone?i.phone:"--"}</td>
-            <td>{i.licence?i.phone:"--"}</td>
+            <td>{i.license?i.license:"--"}</td>
           </tr>
           ))
           :

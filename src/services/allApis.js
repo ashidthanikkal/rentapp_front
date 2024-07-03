@@ -54,4 +54,9 @@ export const deleteCarApi=async(headerData,id)=>{
 }
 
 
+export const editProfileApi=async(bodyData,headerData,id)=>{
+    return await commonApi('PUT',`${baseUrl}/user/edit-profile/${id}`,bodyData,headerData)
+}
+
+
 
