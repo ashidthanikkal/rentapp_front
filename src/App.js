@@ -29,7 +29,7 @@ function App() {
        <Route path='/admin' element={ <AdminDash></AdminDash>}></Route>
        <Route path='/admin_car' element={ <AdminCarCard></AdminCarCard>}></Route>
        <Route path='/view_user' element={ <ViewUser></ViewUser>}></Route>
-       <Route path='/payment' element={ <Payment></Payment>}></Route>
+       <Route path='/payment/:days/:carId' element={ <Payment></Payment>}></Route>
       </Routes>
     </div>
   );

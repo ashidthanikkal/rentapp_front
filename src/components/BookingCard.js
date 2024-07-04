@@ -20,7 +20,6 @@ function BookingCard({viewMyBookings, getMyBookings}) {
         }
     }    
 
-
     return (
         <div>
             <div className='bookings d-flex flex-wrap justify-content-around align-items-center shadow p-2 mt-3'>

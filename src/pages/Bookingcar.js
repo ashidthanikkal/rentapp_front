@@ -44,27 +44,27 @@ function Bookingcar() {
             const daysDiff = (toDate - fromDate) / (1000 * 60 * 60 * 24) + 1;
 
             // Check if selected dates overlap with booked slots
-            const hasOverlap = car.bookedTimeSlots.some(slot => {
-                const slotFrom = new Date(slot.from.split('/').reverse().join('-'));
-                const slotTo = new Date(slot.to.split('/').reverse().join('-'));
-                return (fromDate <= slotTo && toDate >= slotFrom);
-            });
+            // const hasOverlap = car.bookedTimeSlots.some(slot => {
+            //     const slotFrom = new Date(slot.from.split('/').reverse().join('-'));
+            //     const slotTo = new Date(slot.to.split('/').reverse().join('-'));
+            //     return (fromDate <= slotTo && toDate >= slotFrom);
+            // });
 
-            if (hasOverlap) {
-                alert("Selected dates overlap with an existing booking. Please select different dates.");
-                setFrom(null);
-                setTo(null);
-                setDays(0);
-            } else {
+            // if (hasOverlap) {
+            //     alert("Selected dates overlap with an existing booking. Please select different dates.");
+            //     setFrom(null);
+            //     setTo(null);
+            //     setDays(0);
+            // } else {
                 setFrom(fromDate.toLocaleDateString('en-GB'));
                 setTo(toDate.toLocaleDateString('en-GB'));
                 setDays(daysDiff);
             }
-        } else {
-            setFrom(null);
-            setTo(null);
-            setDays(0);
-        }
+        // } else {
+        //     setFrom(null);
+        //     setTo(null);
+        //     setDays(0);
+        // }
     };
 
     const totalAmount = car?.rentamount ? car.rentamount * days : 0;
@@ -114,7 +114,7 @@ function Bookingcar() {
                 from,
                 to
             }],
-            transactionId: "6680498be6f29c9838a89fb1"
+            transactionId: ""
         };
 
         const token = localStorage.getItem("token");
@@ -168,7 +168,8 @@ function Bookingcar() {
                             <h6>Total: <span style={{ color: "green" }}>{totalAmount}₹</span></h6>
 
                             {isLogedIn ?
-                                <button className='booking-btn' onClick={bookNow}>Book Now</button>
+                            // <button onClick={bookNow} className='booking-btn'>Book Now</button>
+                                <Link to={`/payment/${days}/${carId}`}><button className='booking-btn'>Book Now</button></Link>
                                 :
                                 <Link to={'/authentication'}><button className='booking-btn'>Book Now</button></Link>
                             }
