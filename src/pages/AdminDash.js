@@ -6,7 +6,7 @@ import AdminCarCard from '../components/AdminCarCard';
 import ViewUser from './ViewUser';
 import AdminAddCar from '../components/AdminAddCar';
 import { authContext } from '../services/Context';
-import { viewBookingsApi, viewUserApi } from '../services/allApis';
+import { deleteAdminBookingApi, viewBookingsApi, viewUserApi } from '../services/allApis';
 
 function AdminDash() {
     const [view, setView] = useState('default'); // 'default', 'addCar', 'viewUsers', 'bookings'
@@ -31,13 +31,36 @@ function AdminDash() {
     const [userBooking, setUserBookings] = useState({})
 
     const getBookings = async () => {
-        const result = await viewBookingsApi()
-        // console.log(result.data);
+        const token=localStorage.getItem('token')
+
+        const headerConfig = {
+            "Content-Type":"application/json",
+            "access_token": `Bearer ${token}`
+        }
+        const result = await viewBookingsApi(headerConfig)
+        console.log(result.data);
         setUserBookings(result.data)
     }
     useEffect(() => {
         getBookings()
     }, [])
+
+    const handleDelete=async(e,id)=>{
+        e.preventDefault()
+
+        if(localStorage.getItem("token")){
+            const token=localStorage.getItem("token")
+            const reqHeader = {
+                "Content-Type":"application/json",
+                "access_token": `Bearer ${token}`
+            }
+            const result=await deleteAdminBookingApi(reqHeader,id)
+            console.log(result);
+            if(result.status==200){
+            getBookings()
+            }
+        }
+    }    
 
 
     return (
@@ -83,21 +106,21 @@ function AdminDash() {
                                     <div className='bookings  d-flex flex-wrap justify-content-around align-items-center shadow p-2 gap-2 mt-3' >
                                     <div>
                                         <h6>Username: {i?.username}</h6>
-                                        <h6>Phone:{i?.phone} </h6>
+                                        <h6>Phone: {i?.phone} </h6>
                                         <h6>Car: {i?.carTitle}</h6>
-                                        <h6>Rent Per Day:{i?.rentPerDay}</h6>
+                                        <h6>Rent Per Day: <span className='text-success'>{i?.rentPerDay}₹</span></h6>
                                     </div>
     
                                     <div>
-                                        <h6>Transaction Id:{i?.transactionId}</h6>
-                                        <h6>From:{i?.from}</h6>
-                                        <h6>To:{i?.to}</h6>
+                                        <h6>Transaction Id:{i?.bookingId}</h6>
+                                        <h6>From:<span className='text-danger'>{i?.from}</span></h6>
+                                        <h6>To: <span className='text-danger'>{i?.to}</span></h6>
                                         <h6>No of Day :{i?.days}</h6>
-                                        <h6>Total amount:<span className='text-success'>{i?.totalAmount}</span></h6>
+                                        <h6>Total amount:<span className='text-success'>{i?.totalAmount}₹</span></h6>
                                     </div>
     
                                     <div>
-                                        <button className='btn btn-danger' type="button">Delete</button>
+                                        <button onClick={(e)=>handleDelete(e,i.bookingId)} className='btn btn-danger' type="button">Delete</button>
                                     </div>
                                 </div>
     

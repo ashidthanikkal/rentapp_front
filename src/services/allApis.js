@@ -59,9 +59,19 @@ export const editProfileApi=async(bodyData,headerData,id)=>{
 }
 
 //view bookings for admin
+export const viewBookingsApi = async (headerData) => {
+    return await commonApi('GET',`${baseUrl}/bookings`,{},headerData)
+}
 
-export const viewBookingsApi = async () => {
-    return await commonApi('GET',`${baseUrl}/bookings`)
+//view My bookings
+export const viewMyBookingsApi = async (id,headerData) => {
+    return await commonApi('GET',`${baseUrl}/user-bookings/${id}`,{},headerData)
+}
+
+//delete admin bookings
+
+export const deleteAdminBookingApi=async(headerData,id)=>{
+    return await commonApi('DELETE',`${baseUrl}/delete-booking/${id}`,{},headerData)
 }
 
 
