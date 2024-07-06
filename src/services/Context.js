@@ -11,7 +11,7 @@ export const paymentContext=createContext()
 function Context({children}) {
     const [isAdmin, setIsAdmin] = useState(false);
 
-    const [editProfile,setEditProfile] = useState("")
+    // const [editProfile,setEditProfile] = useState("")
 
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { deleteAdminBookingApi } from '../services/allApis'
+import { deleteBookingApi } from '../services/allApis'
 
 function BookingCard({viewMyBookings, getMyBookings}) {
 
@@ -12,9 +12,10 @@ function BookingCard({viewMyBookings, getMyBookings}) {
                 "Content-Type":"application/json",
                 "access_token": `Bearer ${token}`
             }
-            const result=await deleteAdminBookingApi(reqHeader,id)
+            const result=await deleteBookingApi(reqHeader,id)
             console.log(result);
             if(result.status==200){
+                alert("Cancel your booking")
                 getMyBookings()
             }
         }

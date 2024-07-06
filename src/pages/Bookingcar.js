@@ -139,15 +139,20 @@ function Bookingcar() {
 
 
     return (
-        <div>
+        <div className='min-vh-100'>
             <Header />
-            <Container>
+            {/* <Container >
                 <Link to={'/home'} style={{ textDecoration: "none" }}>
                     <h6 className='text-start'><i className="fa-solid fa-arrow-left"></i> Back To Home</h6>
                 </Link>
-            </Container>
+            </Container> */}
             <div className='booking-container mt-5'>
+                
                 <Row className='d-flex align-items-center justify-content-center p-2'>
+                <Link to={'/home'} style={{ textDecoration: "none" }}>
+                    <h6 className='text-start'><i className="fa-solid fa-arrow-left"></i> Back To Home</h6>
+                </Link>
+
                     <Col lg={6} md={6} sm={12} className='mb-4'>
                         <img className='car-image' src={`${baseUrl}/uploads/${car.carimage}`} alt="Car" />
                     </Col>

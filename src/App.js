@@ -12,6 +12,7 @@ import ViewUser from './pages/ViewUser';
 import Payment from './pages/Payment';
 import { useContext} from 'react';
 import { authContext } from './services/Context';
+import Footer from './components/Footer';
 
 function App() {
   const {isAdmin}=useContext(authContext)
@@ -31,6 +32,7 @@ function App() {
        <Route path='/view_user' element={ <ViewUser></ViewUser>}></Route>
        <Route path='/payment/:days/:carId' element={ <Payment></Payment>}></Route>
       </Routes>
+      <Footer></Footer>
     </div>
   );
 }

@@ -22,9 +22,10 @@ function ProfileCard({ changeOpen, isProfileOpen,username,existingImage }) {
     <div>
       <Card style={{ width: '18rem' }} className='shadow'>
         <div className='d-flex justify-content-center'>
+          
           <CardImg
             style={{ borderRadius: '50%', width: '150px', padding: '20px' }}
-            src={`${baseUrl}/uploads/${existingImage}`}
+            src={existingImage?`${baseUrl}/uploads/${existingImage}`:"https://i.postimg.cc/6pTqS6WS/Screenshot-2024-06-30-162542.png"}
             alt="User Profile Picture"
           />
         </div>

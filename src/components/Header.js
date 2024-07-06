@@ -18,10 +18,10 @@ function Header() {
   }
   return (
     <div>
-       <Navbar expand="lg" className="custom-navbar">
+       <Navbar expand="lg" className="custom-navbar" style={{position:" fixed",top: "0", width: "100%",zIndex:"1000"}}>
       <Container>
         <Navbar.Brand as={Link} to="/">
-          <h2>RentaCar</h2>
+          <h2>DriveEase</h2>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

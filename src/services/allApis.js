@@ -66,9 +66,9 @@ export const viewMyBookingsApi = async (id,headerData) => {
     return await commonApi('GET',`${baseUrl}/user-bookings/${id}`,{},headerData)
 }
 
-//delete admin bookings
+//delete admin/user bookings
 
-export const deleteAdminBookingApi=async(headerData,id)=>{
+export const deleteBookingApi=async(headerData,id)=>{
     return await commonApi('DELETE',`${baseUrl}/delete-booking/${id}`,{},headerData)
 }
 

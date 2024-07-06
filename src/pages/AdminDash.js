@@ -6,7 +6,7 @@ import AdminCarCard from '../components/AdminCarCard';
 import ViewUser from './ViewUser';
 import AdminAddCar from '../components/AdminAddCar';
 import { authContext } from '../services/Context';
-import { deleteAdminBookingApi, viewBookingsApi, viewUserApi } from '../services/allApis';
+import { deleteBookingApi, viewBookingsApi, viewUserApi } from '../services/allApis';
 
 function AdminDash() {
     const [view, setView] = useState('default'); // 'default', 'addCar', 'viewUsers', 'bookings'
@@ -54,7 +54,7 @@ function AdminDash() {
                 "Content-Type":"application/json",
                 "access_token": `Bearer ${token}`
             }
-            const result=await deleteAdminBookingApi(reqHeader,id)
+            const result=await deleteBookingApi(reqHeader,id)
             console.log(result);
             if(result.status==200){
             getBookings()
@@ -64,7 +64,7 @@ function AdminDash() {
 
 
     return (
-        <div>
+        <div className='min-vh-100'>
             <Sidebar handleViewChange={handleViewChange} />
 
             <Row className='mt-5 p-5'>

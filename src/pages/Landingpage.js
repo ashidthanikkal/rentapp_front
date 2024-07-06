@@ -23,9 +23,9 @@ function Landingpage() {
                         <img style={{ width: "100%" }} src="https://i.postimg.cc/cC75sgzd/Car-rental-pana.png" alt="" />
                     </Col>
                     <Col className='banner_content' lg={6} md={12}>
-                        <h1>Rent A Car From Best Car Rental</h1>
+                        <h1>DriveEase: Where Every Mile Matters</h1>
                         <p>
-                            IndusGo is one of the most trusted car rental services as Indus Motors, the top Maruti dealership in India, promotes it. The rent-a-car service provider offers an outstanding model and a wide variety of vehicle options at the most competitive rates. At IndusGo, we allow you to enjoy flexibility with respect to start and endpoints. You can book cars on an hourly, daily, weekly, monthly basis. Moreover, we provide door-step delivery, believe in complete transparency, and adhere strictly to business ethics.
+                        Welcome to DriveEase, where renting a car is designed to be effortless and enjoyable. We offer a diverse selection of vehicles, from sleek sedans to spacious SUVs, ensuring there's a perfect ride for every journey. Our commitment is to provide competitive rates, transparent booking processes, and exceptional customer service. Whether you're traveling for business or pleasure, DriveEase is your trusted partner for convenient, reliable, and memorable car rentals. Join us and experience the simplicity of driving with DriveEase.
                         </p>
                         <Link to={'./home'}><div className='text-center py-3'><button className='car_btn'>Choose your Car</button></div></Link>
                     </Col>
@@ -33,7 +33,7 @@ function Landingpage() {
 
                 <div className='about text-center'>
                     <h1> About us </h1>
-                    <p>Discover the convenience and benefits of car subscription with IndusGo. Our customer-friendly system ensures a seamless experience for your favorite pick. Enjoy zero down payment, free insurance, and complimentary maintenance and service. With the freedom to return or extend your subscription anytime, IndusGo guarantees your happiness on the road. Choose IndusGo and experience the joy of hassle-free car subscription today.</p>
+                    <p>Discover the convenience and benefits of car subscription with DriveEase. Our customer-friendly system ensures a seamless experience for your favorite pick. Enjoy zero down payment, free insurance, and complimentary maintenance and service. With the freedom to return or extend your subscription anytime, DriveEase guarantees your happiness on the road. Choose DriveEase and experience the joy of hassle-free car subscription today.</p>
                 </div>
 
                 <div className='all_service_card d-flex justify-content-center gap-4 pt-3'>

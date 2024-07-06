@@ -91,9 +91,9 @@ const handleUpdate=async(e)=>{
 }
 console.log(userProfile);
   return (
-    <div>
+    <div className='min-vh-100 mt-5'>
       <Header username={username} />
-      <div className="dashboard">
+      <div className="dashboard pt-5">
         <Container>
           <div className='d-flex justify-content-around flex-wrap'>
             <div>

@@ -140,11 +140,11 @@ function Payment() {
 
 
   return (
-    <div>
+    <div className='min-vh-100 mt-5'>
       <Header></Header>
       <Container>
         <Link to={'/home'} style={{ textDecoration: "none" }}>
-          <h6 className='text-start'><i className="fa-solid fa-arrow-left"></i> Back To Home</h6>
+          <h6 className='text-start pt-5'><i className="fa-solid fa-arrow-left"></i> Back To Home</h6>
         </Link>
       </Container>
 
