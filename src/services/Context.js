@@ -5,6 +5,8 @@ export const authContext = createContext()
 
 export const profileUpdateContext=createContext()
 
+export const paymentContext=createContext()
+
 
 function Context({children}) {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -35,13 +37,17 @@ function Context({children}) {
 
     const [editUpdate,setEditUpdate]=useState("")
 
+    const [bookingDetails,setBookingDetails]=useState({})
+
     return (
         <div>
-               <profileUpdateContext.Provider value={{editUpdate,setEditUpdate}}>
-                    <authContext.Provider value={{ isAdmin, setIsAdmin, viewCars,setViewCars, getCars}}>
-                        {children}
-                    </authContext.Provider>
-               </profileUpdateContext.Provider>
+              <paymentContext.Provider value={{bookingDetails,setBookingDetails}}>
+                   <profileUpdateContext.Provider value={{editUpdate,setEditUpdate}}>
+                        <authContext.Provider value={{ isAdmin, setIsAdmin, viewCars,setViewCars, getCars}}>
+                            {children}
+                        </authContext.Provider>
+                   </profileUpdateContext.Provider>
+              </paymentContext.Provider>
         </div>
     )
 }

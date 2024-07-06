@@ -34,8 +34,7 @@ export const viewUserApi = async () => {
 }
 
 
-//booking
-
+//carbooking
 export const bookCarApi = async (id,bodyData,headerData) => {
     return await commonApi('POST',`${baseUrl}/booking/${id}`,bodyData,headerData)
 }
@@ -48,7 +47,6 @@ export const editCarApi=async(bodyData,headerData,id)=>{
 
 
 //deleteCar Api
-
 export const deleteCarApi=async(headerData,id)=>{
     return await commonApi('DELETE',`${baseUrl}/admin/delete-car/${id}`,{},headerData)
 }
@@ -72,6 +70,12 @@ export const viewMyBookingsApi = async (id,headerData) => {
 
 export const deleteAdminBookingApi=async(headerData,id)=>{
     return await commonApi('DELETE',`${baseUrl}/delete-booking/${id}`,{},headerData)
+}
+
+//paypal
+
+export const getPaypalIdApi=async()=>{
+    return await commonApi('GET',`${baseUrl}/api/config/paypal`,{},{})
 }
 
 

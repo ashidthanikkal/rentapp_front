@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Divider, DatePicker } from 'antd';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import { bookCarApi, getCarByIdApi } from '../services/allApis';
 import { baseUrl } from '../services/commonApi';
 import './Bookingcar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
+import { paymentContext } from '../services/Context';
 
 const { RangePicker } = DatePicker;
 
 function Bookingcar() {
+    const { setBookingDetails } = useContext(paymentContext)
+    const navigate = useNavigate()
+
     const [isLogedIn, setIsLogedIn] = useState(false);
     const [car, setCar] = useState({});
     const [from, setFrom] = useState(null);
@@ -43,28 +47,10 @@ function Bookingcar() {
             const toDate = new Date(dates[1].format('YYYY-MM-DD'));
             const daysDiff = (toDate - fromDate) / (1000 * 60 * 60 * 24) + 1;
 
-            // Check if selected dates overlap with booked slots
-            // const hasOverlap = car.bookedTimeSlots.some(slot => {
-            //     const slotFrom = new Date(slot.from.split('/').reverse().join('-'));
-            //     const slotTo = new Date(slot.to.split('/').reverse().join('-'));
-            //     return (fromDate <= slotTo && toDate >= slotFrom);
-            // });
-
-            // if (hasOverlap) {
-            //     alert("Selected dates overlap with an existing booking. Please select different dates.");
-            //     setFrom(null);
-            //     setTo(null);
-            //     setDays(0);
-            // } else {
-                setFrom(fromDate.toLocaleDateString('en-GB'));
-                setTo(toDate.toLocaleDateString('en-GB'));
-                setDays(daysDiff);
-            }
-        // } else {
-        //     setFrom(null);
-        //     setTo(null);
-        //     setDays(0);
-        // }
+            setFrom(fromDate.toLocaleDateString('en-GB'));
+            setTo(toDate.toLocaleDateString('en-GB'));
+            setDays(daysDiff);
+        }
     };
 
     const totalAmount = car?.rentamount ? car.rentamount * days : 0;
@@ -107,7 +93,31 @@ function Bookingcar() {
             return;
         }
 
-        const reqObj = {
+        // const reqObj = {
+        //     days,
+        //     totalAmount,
+        //     bookedTimeSlot: [{
+        //         from,
+        //         to
+        //     }],
+        //     transactionId: ""
+        // };
+
+        // const token = localStorage.getItem("token");
+
+        // const headerConfig = {
+        //     "Content-Type": "application/json",
+        //     "access_token": `Bearer ${token}`
+        // };
+        // try {
+        //     const response = await bookCarApi(carId, reqObj, headerConfig);
+        //     console.log(response);
+        //     alert("Booking Successful");
+        // } catch (error) {
+        //     console.log(error);
+        //     alert("Booking failed");
+        // }
+        setBookingDetails({
             days,
             totalAmount,
             bookedTimeSlot: [{
@@ -115,23 +125,18 @@ function Bookingcar() {
                 to
             }],
             transactionId: ""
-        };
+        })
 
-        const token = localStorage.getItem("token");
+        localStorage.setItem("fromDate", from)
+        localStorage.setItem("toDate", to)
 
-        const headerConfig = {
-            "Content-Type": "application/json",
-            "access_token": `Bearer ${token}`
-        };
-        try {
-            const response = await bookCarApi(carId, reqObj, headerConfig);
-            console.log(response);
-            alert("Booking Successful");
-        } catch (error) {
-            console.log(error);
-            alert("Booking failed");
-        }
+
+
+        navigate(`/payment/${days}/${carId}`)
     };
+
+
+
 
     return (
         <div>
@@ -168,8 +173,7 @@ function Bookingcar() {
                             <h6>Total: <span style={{ color: "green" }}>{totalAmount}₹</span></h6>
 
                             {isLogedIn ?
-                            // <button onClick={bookNow} className='booking-btn'>Book Now</button>
-                                <Link to={`/payment/${days}/${carId}`}><button className='booking-btn'>Book Now</button></Link>
+                                <button onClick={bookNow} disabled={from === null && to === null} className='booking-btn'>Book Now</button>
                                 :
                                 <Link to={'/authentication'}><button className='booking-btn'>Book Now</button></Link>
                             }
