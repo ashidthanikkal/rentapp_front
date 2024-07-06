@@ -34,7 +34,7 @@ function AdminCarCard({cars}) {
 
                        <div>
                             <h4>{cars?.title}</h4>
-                            <h6><b>{cars?.rentamount}</b><sub>₹/day</sub></h6>
+                            <h6><b>{cars?.rentamount}$</b><sub>/day</sub></h6>
     
                        </div>
                         <div className='d-flex align-items-center'>

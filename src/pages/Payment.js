@@ -169,7 +169,7 @@ function Payment() {
 
 
           <div className='d-flex justify-content-between '>
-            <h6>Rent per Day: <span className='text-success'>{car.rentamount}₹</span></h6>
+            <h6>Rent per Day: <span className='text-success'>{car.rentamount}$</span></h6>
             <h6>Days: {days} Day{days !== 1 ? 's' : ''}</h6>
           </div>
 
@@ -190,17 +190,17 @@ function Payment() {
 
           <div className='d-flex  justify-content-between mb-3'>
             <h6>Rent Amount: </h6>
-            <h6>{(car.rentamount) * days} ₹</h6>
+            <h6>{(car.rentamount) * days} $</h6>
           </div>
 
           <div className='d-flex justify-content-between mb-3'>
             <h6>Discount: </h6>
-            <h6>0 ₹</h6>
+            <h6 className='text-danger'>0 $</h6>
           </div>
 
           <div className='d-flex justify-content-between mt-5'>
             <h6>Total Amount: </h6>
-            <h6><b className='text-success'>{(car.rentamount) * days} ₹</b></h6>
+            <h6><b className='text-success'>{(car.rentamount) * days}$</b></h6>
           </div>
 
           {/* <div>

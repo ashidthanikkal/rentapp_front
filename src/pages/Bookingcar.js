@@ -156,7 +156,7 @@ function Bookingcar() {
                         <Divider type='horizontal' dashed>Car Info</Divider>
                         <div className='car-details'>
                             <h6>{car?.title}</h6>
-                            <h6><b>{car?.rentamount}₹</b><sub>/day</sub></h6>
+                            <h6><b>{car?.rentamount}$</b><sub>/day</sub></h6>
                             <h6>Max Person: {car?.seat}</h6>
                             <h6>Manual/Auto: {car?.cartype}</h6>
                             <h6>Mileage: {car?.milage} Km</h6>
@@ -169,8 +169,8 @@ function Bookingcar() {
                                 disabledDate={disabledDate}
                             />
                             <h6>Days: {days} Day{days !== 1 ? 's' : ''}</h6>
-                            <h6>Rent Per Day: {car?.rentamount}₹</h6>
-                            <h6>Total: <span style={{ color: "green" }}>{totalAmount}₹</span></h6>
+                            <h6>Rent Per Day: {car?.rentamount}$</h6>
+                            <h6>Total: <span style={{ color: "green" }}>{totalAmount}$</span></h6>
 
                             {isLogedIn ?
                                 <button onClick={bookNow} disabled={from === null && to === null} className='booking-btn'>Book Now</button>

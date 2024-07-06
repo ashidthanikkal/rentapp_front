@@ -10,7 +10,7 @@ function Card({cars}) {
                 <div className="car_card pt-3">
                     <div className='ms-4'>
                         <h4>{cars?.title}</h4>
-                        <h6><b>{cars?.rentamount}</b><sub>₹/day</sub></h6>
+                        <h6><b>{cars?.rentamount}$</b><sub>/day</sub></h6>
                     </div>
                     <img style={{ width: "100%",height:"180px" }} src={`${baseUrl}/uploads/${cars?.carimage}`} alt="" />
     

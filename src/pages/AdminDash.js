@@ -108,15 +108,15 @@ function AdminDash() {
                                         <h6>Username: {i?.username}</h6>
                                         <h6>Phone: {i?.phone} </h6>
                                         <h6>Car: {i?.carTitle}</h6>
-                                        <h6>Rent Per Day: <span className='text-success'>{i?.rentPerDay}₹</span></h6>
+                                        <h6>Rent Per Day: <span className='text-success'>{i?.rentPerDay}$</span></h6>
                                     </div>
     
                                     <div>
-                                        <h6>Transaction Id:{i?.bookingId}</h6>
+                                        <h6>Transaction Id:<span className='text-success'>{i?.bookingId}</span></h6>
                                         <h6>From:<span className='text-danger'>{i?.from}</span></h6>
                                         <h6>To: <span className='text-danger'>{i?.to}</span></h6>
                                         <h6>No of Day :{i?.days}</h6>
-                                        <h6>Total amount:<span className='text-success'>{i?.totalAmount}₹</span></h6>
+                                        <h6>Total amount:<span className='text-success'>{i?.totalAmount}$</span></h6>
                                     </div>
     
                                     <div>

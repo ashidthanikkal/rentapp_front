@@ -108,7 +108,8 @@ const Sidebar = ({handleViewChange}) => {
         <FaChartBar size={20} />
         <span>Statistics</span>
       </SidebarItem> */}
-      <div onClick={()=>handleLogout()}>
+
+      <div onClick={()=>handleLogout()} className='w-100'>
         <SidebarItem>
           <FaSignOutAlt size={20} />
           <span>Logout</span>

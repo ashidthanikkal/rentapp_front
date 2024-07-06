@@ -26,8 +26,8 @@ function BookingCard({viewMyBookings, getMyBookings}) {
                 <div>
                     <h6>Car Name: {viewMyBookings.title}</h6>
                     <h6>No of Day : {viewMyBookings.days}</h6>
-                    <h6>Rent Per Day: {viewMyBookings.rentamount} ₹</h6>
-                    <h6>Total amount: <span className='text-success'>{viewMyBookings.totalAmount}₹</span></h6>
+                    <h6>Rent Per Day: {viewMyBookings.rentamount}$</h6>
+                    <h6>Total amount: <span className='text-success'>{viewMyBookings.totalAmount}$</span></h6>
                 </div>
 
                 <div>
