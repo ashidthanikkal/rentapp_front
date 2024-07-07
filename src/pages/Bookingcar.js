@@ -13,6 +13,8 @@ import { paymentContext } from '../services/Context';
 const { RangePicker } = DatePicker;
 
 function Bookingcar() {
+    window.scrollTo(0, 0);
+
     const { setBookingDetails } = useContext(paymentContext)
     const navigate = useNavigate()
 

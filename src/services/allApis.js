@@ -74,8 +74,8 @@ export const deleteBookingApi=async(headerData,id)=>{
 
 //paypal
 
-export const getPaypalIdApi=async()=>{
-    return await commonApi('GET',`${baseUrl}/api/config/paypal`,{},{})
-}
+// export const getPaypalIdApi=async()=>{
+//     return await commonApi('GET',`${baseUrl}/api/config/paypal`,{},{})
+// }
 
 

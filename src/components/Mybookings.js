@@ -25,7 +25,7 @@ function Mybookings() {
 
 
     return (
-        <div className='shadow rounded-3 p-5'>
+        <div className='p-4 shadow'>
             <h3 className='text-center'>My Bookings</h3>
             <div className='' >
 

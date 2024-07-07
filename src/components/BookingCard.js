@@ -23,7 +23,7 @@ function BookingCard({viewMyBookings, getMyBookings}) {
 
     return (
         <div>
-            <div className='bookings d-flex flex-wrap justify-content-around align-items-center shadow p-2 mt-3'>
+            <div className='bookings d-flex flex-wrap justify-content-lg-around justify-content-sm-evently align-items-center shadow p-2 mt-3'>
                 <div>
                     <h6>Car Name: {viewMyBookings.title}</h6>
                     <h6>No of Day : {viewMyBookings.days}</h6>
@@ -38,7 +38,7 @@ function BookingCard({viewMyBookings, getMyBookings}) {
                     <h6>Date of Booking: {viewMyBookings?.timestamp.slice(0, 10).split('-').reverse().join('/')}</h6>
                 </div>
 
-                <div>
+                <div >
                     <button onClick={(e)=>handleDelete(e,viewMyBookings.bookingId)} className='btn btn-danger' type="button">Cancel</button>
                 </div>
             </div>

@@ -150,7 +150,7 @@ function Payment() {
 
       <div className='d-flex flex-wrap justify-content-around  align-items-center mt-5'>
         <div className='shadow rounded p-5 text-center'>
-          <h3>Booking Information</h3>
+          <h3 className='mb-3'>Booking Information</h3>
 
           <div>
             <img src={`${baseUrl}/uploads/${car.carimage}`} style={{ width: "200px" }} alt="Car" />
@@ -182,13 +182,13 @@ function Payment() {
         </div>
 
         <div className='shadow rounded p-5 text-center'>
-          <h3>Payment Details</h3>
+          <h3 className='mb-3'>Payment Details</h3>
 
-          <div className='text-center my-4'>
+          {/* <div className='text-center my-4'>
             <h5 >{username}</h5>
-          </div>
+          </div> */}
 
-          <div className='d-flex  justify-content-between mb-3'>
+          <div className='d-flex  justify-content-between my-4'>
             <h6>Rent Amount: </h6>
             <h6>{(car.rentamount) * days} $</h6>
           </div>

@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import { authContext } from '../services/Context';
 
 function Homepage() {
+    window.scrollTo(0, 0);
+
     const { viewCars } = useContext(authContext);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortOrder, setSortOrder] = useState('asc');
