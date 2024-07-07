@@ -3,6 +3,9 @@ import { paymentContext } from '../services/Context';
 import { bookCarApi } from '../services/allApis';
 import { useNavigate } from 'react-router-dom';
 
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function PayPal() {
 
     const {bookingDetails}=useContext(paymentContext)
@@ -33,10 +36,32 @@ function PayPal() {
             const response = await bookCarApi(carId, reqObj, headerConfig);
             console.log(response);
             navigate('/userdash')
-            alert("Booking Successful");
+            // alert("Booking Successful");
+            toast.success("Booking Successful", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+              });
         } catch (error) {
             console.log(error);
-            alert("Booking failed");
+            // alert("Booking failed");
+            toast.error("Booking failed", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+              });
         }
     }
 
@@ -69,6 +94,17 @@ console.log(bookingDetails.totalAmount);
                       return actions.order.capture().then(function (details) {
                         confirmBooking(details.id)
                         // alert("Transaction completed by" + details.payer.name.given_name)
+                        // toast.success("Transaction completed by" + details.payer.name.given_name, {
+                        //   position: "top-right",
+                        //   autoClose: 3000,
+                        //   hideProgressBar: false,
+                        //   closeOnClick: true,
+                        //   pauseOnHover: true,
+                        //   draggable: true,
+                        //   progress: undefined,
+                        //   theme: "light",
+                        //   transition: Bounce,
+                        //   });
                 
                       })
                 
@@ -86,8 +122,10 @@ console.log(bookingDetails.totalAmount);
 
     
   return (
-    <div id='paypal'>
-      
+    <div>
+      <div id='paypal'>
+      </div>
+      <ToastContainer />
     </div>
   )
 }

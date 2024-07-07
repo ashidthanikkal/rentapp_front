@@ -7,6 +7,9 @@ import { baseUrl } from '../services/commonApi';
 import { editProfileApi } from '../services/allApis';
 import { profileUpdateContext } from '../services/Context';
 
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function UserDash() {
   window.scrollTo(0, 0);
 
@@ -84,7 +87,20 @@ function UserDash() {
       if (result.status == 200) {
         localStorage.setItem("user", JSON.stringify(result.data))
         localStorage.setItem("currentUser", result.data.username)
-        alert("update successfull..!")
+        // alert("update successfull..!")
+        toast.success("update successfull..!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+
+
         setEditUpdate(result.data)
       }
 
@@ -139,6 +155,7 @@ function UserDash() {
           </div>
         </Container>
       </div>
+      <ToastContainer />
     </div>
   );
 }

@@ -64,19 +64,19 @@ function AdminDash() {
 
 
     return (
-        <div className='min-vh-100'>
-            <Sidebar handleViewChange={handleViewChange} />
-
-            <Row className='mt-5 p-5'>
+        <div className='admin-dash min-vh-100'>
+            
+            <Row className='mt-5'>
                 <Col lg={2}>
+                <Sidebar handleViewChange={handleViewChange} />
                 </Col>
                 <Col lg={10}>
-                    <h1>Welcome Admin...!</h1>
+                    <h1 className='pt-5 ms-2'>Welcome Admin...!</h1>
 
                     {view === 'addCar' && (
-                        <div className='add_car'>
+                        <div className='add_car ms-2'>
                             <AdminAddCar></AdminAddCar>
-                            <div className='d-flex flex-wrap gap-3'>
+                            <div className='d-flex justify-content-center flex-wrap gap-3'>
                                 {
                                     viewCars?.length > 0 ?
                                         viewCars.map(i => (
@@ -98,12 +98,12 @@ function AdminDash() {
                     )}
 
                     {view === 'bookings' && (
-                        <div >
+                        <div className='p-2' >
 
                             {
                                 userBooking?.length>0?
                                 userBooking.map(i=>(
-                                    <div className='bookings  d-flex flex-wrap justify-content-around align-items-center shadow p-2 gap-2 mt-3' >
+                                    <div className='bookings  d-flex flex-wrap justify-content-lg-around justify-content-sm-evently align-items-center shadow p-2 gap-2 mt-3' >
                                     <div>
                                         <h6>Username: {i?.username}</h6>
                                         <h6>Phone: {i?.phone} </h6>

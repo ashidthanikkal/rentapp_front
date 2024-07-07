@@ -3,12 +3,15 @@ import { Divider, DatePicker } from 'antd';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
-import { bookCarApi, getCarByIdApi } from '../services/allApis';
+import { getCarByIdApi } from '../services/allApis';
 import { baseUrl } from '../services/commonApi';
 import './Bookingcar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import { paymentContext } from '../services/Context';
+
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const { RangePicker } = DatePicker;
 
@@ -91,7 +94,20 @@ function Bookingcar() {
 
     const bookNow = async () => {
         if (!from || !to) {
-            alert("Please select a date range.");
+            // alert("Please select a date range.");
+            toast.warn("Please select a date range.", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
+
+
             return;
         }
 
@@ -188,6 +204,7 @@ function Bookingcar() {
                     </Col>
                 </Row>
             </div>
+            <ToastContainer />
         </div>
     );
 }

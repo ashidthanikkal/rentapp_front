@@ -108,7 +108,19 @@ function Auth({ register }) {
         e.preventDefault()
         const {email,password}=userInputs
         if(email==""||password==""){
-            alert("please fill all datas")
+            // alert("please fill all datas")
+            toast.warn("please fill all datas", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
+
         }
         else{
            const result= await loginApi(userInputs)
