@@ -41,27 +41,30 @@ function Homepage() {
         <div className='min-vh-100 mt-5'>
             <Header />
             <div className='d-flex justify-content-center align-items-center flex-column pt-5'>
-                <input 
-                    type='text' 
-                    placeholder='Search cars...' 
-                    value={searchQuery} 
-                    onChange={handleSearch} 
+                <input
+                    type='text'
+                    placeholder='Search cars...'
+                    value={searchQuery}
+                    onChange={handleSearch}
                     className='form-control w-50 mb-4'
                 />
-                <button 
-                    type='button' 
-                    className='btn btn-outline-dark mb-4' 
+                <button
+                    type='button'
+                    className='btn btn-outline-dark mb-4'
                     onClick={toggleSortOrder}
                 >
                     Sort by Price: {sortOrder === 'asc' ? 'High' : 'Low'}
                 </button>
                 <div className='d-flex justify-content-center align-items-center flex-wrap gap-3'>
-                    {currentCars && currentCars.length > 0 ? 
+                    {currentCars && currentCars.length > 0 ?
                         currentCars.map(car => (
                             <Card key={car.id} cars={car} />
                         ))
-                    : 
-                        <h2>No Cars</h2>
+                        :
+                        <div>
+                            <h1>No Cars found</h1>
+                        </div>
+
                     }
                 </div>
                 <div className='mt-4'>
